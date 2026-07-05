@@ -1,7 +1,6 @@
 package com.airbnb.service.airbnb_project.Repositories;
 
 
-import com.airbnb.service.airbnb_project.Dto.GuestDTO;
 import com.airbnb.service.airbnb_project.Entities.GuestEntity;
 import com.airbnb.service.airbnb_project.Entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface GuestRepository extends JpaRepository<GuestEntity, Long> {
-    List<GuestDTO> findByUser(UserEntity user);
+    List<GuestEntity> findByUser(UserEntity user);
 }
