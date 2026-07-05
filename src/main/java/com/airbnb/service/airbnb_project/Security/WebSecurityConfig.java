@@ -1,7 +1,5 @@
 package com.airbnb.service.airbnb_project.Security;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,14 +21,16 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class WebSecurityConfig {
 
     private final JWTAuthFilter jwtAuthFilter;
+    private final HandlerExceptionResolver handlerExceptionResolver;
 
-    @Autowired
-    @Qualifier("handlerExceptionResolver")
-    private HandlerExceptionResolver handlerExceptionResolver;
+    public WebSecurityConfig(JWTAuthFilter jwtAuthFilter,
+                             @Qualifier("handlerExceptionResolver") HandlerExceptionResolver handlerExceptionResolver) {
+        this.jwtAuthFilter = jwtAuthFilter;
+        this.handlerExceptionResolver = handlerExceptionResolver;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -69,9 +69,8 @@ public class WebSecurityConfig {
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
-        return (request, response, accessDeniedException) -> {
-            handlerExceptionResolver.resolveException(request, response, null, accessDeniedException);
-        };
+        return (request, response, accessDeniedException) ->
+                handlerExceptionResolver.resolveException(request, response, null, accessDeniedException);
     }
 
 }
