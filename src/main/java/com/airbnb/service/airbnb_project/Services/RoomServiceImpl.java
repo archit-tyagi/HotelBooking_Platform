@@ -113,8 +113,8 @@ public class RoomServiceImpl implements RoomService {
 
         modelMapper.map(roomDto, room);
         room.setId(roomId);
-
-//        TODO: if price or inventory is updated, then update the inventory for this room
+        room.setPhotos(roomDto.getPhotos());
+        room.setAmenities(roomDto.getAmenities());
         room = roomRepository.save(room);
 
         return modelMapper.map(room, RoomDTO.class);

@@ -77,6 +77,8 @@ public class HotelServiceImpl implements HotelService {
 
         modelMapper.map(hotelDto, hotel);
         hotel.setId(id);
+        hotel.setPhotos(hotelDto.getPhotos());
+        hotel.setAmenities(hotelDto.getAmenities());
         hotel = hotelRepository.save(hotel);
         return modelMapper.map(hotel, HotelDTO.class);
     }

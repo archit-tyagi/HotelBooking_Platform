@@ -31,7 +31,7 @@ public class HotelController {
     @PostMapping
     @Operation(summary = "Create a new hotel", description = "Adds a new hotel to the system")
     public ResponseEntity<HotelDTO> createNewHotel(@RequestBody HotelDTO hotelDto) {
-        log.info("Attempting to create a new hotel with name: "+hotelDto.getName());
+        log.info("Attempting to create a new hotel with name: {}", hotelDto.getName());
         HotelDTO hotel = hotelService.createNewHotel(hotelDto);
         return new ResponseEntity<>(hotel, HttpStatus.CREATED);
     }
