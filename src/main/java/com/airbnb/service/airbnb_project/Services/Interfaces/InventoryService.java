@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface InventoryService {
-    void initializeRoomForAYear(RoomEntity room);
+    void initializeRoomForAnYear(RoomEntity room);
 
     void deleteAllInventories(RoomEntity room);
 

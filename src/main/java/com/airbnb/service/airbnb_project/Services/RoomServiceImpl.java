@@ -46,7 +46,7 @@ public class RoomServiceImpl implements RoomService {
         room = roomRepository.save(room);
 
         if (hotel.getActive()) {
-            inventoryService.initializeRoomForAYear(room);
+            inventoryService.initializeRoomForAnYear(room);
         }
 
         return modelMapper.map(room, RoomDTO.class);

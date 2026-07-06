@@ -26,7 +26,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,11 +42,18 @@ public class InventoryServiceImpl implements InventoryService {
     private final RoomRepository roomRepository;
 
     @Override
-    public void initializeRoomForAYear(RoomEntity room) {
+    public void initializeRoomForAnYear(RoomEntity room) {
+        Set<LocalDate> existingDates = inventoryRepository.findByRoomOrderByDate(room).stream()
+                .map(InventoryEntity::getDate)
+                .collect(Collectors.toSet());
+
         LocalDate today = LocalDate.now();
         LocalDate endDate = today.plusYears(1);
-        for (; !today.isAfter(endDate); today=today.plusDays(1)) {
-            InventoryEntity inventory = InventoryEntity.builder()
+        List<InventoryEntity> toCreate = new ArrayList<>();
+
+        while(!today.isAfter(endDate)){
+            if(existingDates.contains(today)) continue;
+            toCreate.add(InventoryEntity.builder()
                     .hotel(room.getHotel())
                     .room(room)
                     .bookCount(0)
@@ -55,9 +64,10 @@ public class InventoryServiceImpl implements InventoryService {
                     .surgeFactor(BigDecimal.ONE)
                     .totalCount(room.getTotalCount())
                     .closed(false)
-                    .build();
-            inventoryRepository.save(inventory);
+                    .build());
+            today=today.plusDays(1);
         }
+        inventoryRepository.saveAll(toCreate);
     }
 
     @Override
