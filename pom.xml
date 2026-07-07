@@ -109,6 +109,11 @@
             <artifactId>stripe-java</artifactId>
             <version>30.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>de.focus-shift</groupId>
+            <artifactId>jollyday-jackson</artifactId>
+            <version>1.5.2</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
