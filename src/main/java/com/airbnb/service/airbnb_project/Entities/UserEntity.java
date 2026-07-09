@@ -2,6 +2,7 @@ package com.airbnb.service.airbnb_project.Entities;
 
 import com.airbnb.service.airbnb_project.Enums.Gender;
 import com.airbnb.service.airbnb_project.Enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -37,6 +38,7 @@ public class UserEntity implements UserDetails {
     @Column(unique = true,nullable = false)
     private String email;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 

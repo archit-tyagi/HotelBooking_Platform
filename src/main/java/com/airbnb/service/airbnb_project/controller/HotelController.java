@@ -71,13 +71,13 @@ public class HotelController {
     }
 
     @GetMapping("/{hotelId}/bookings")
-    @Operation(summary = "Get all bookings of a hotel", description = "Fetches all bookings related to a specific hotel", tags = {"Booking Flow"})
+    @Operation(summary = "Get all bookings of a hotel", description = "Fetches all bookings related to a specific hotel")
     public ResponseEntity<List<BookingDTO>> getAllBookingsByHotelId(@PathVariable Long hotelId) {
         return ResponseEntity.ok(bookingService.getAllBookingsByHotelId(hotelId));
     }
 
     @GetMapping("/{hotelId}/reports")
-    @Operation(summary = "Generate a hotel booking report",description = "Generates a report for hotel bookings within a date range", tags = {"Booking Flow"})
+    @Operation(summary = "Generate a hotel booking report",description = "Generates a report for hotel bookings within a date range")
     public ResponseEntity<HotelReportDTO> getHotelReport(@PathVariable Long hotelId,
                                                          @RequestParam(required = false) LocalDate startDate,
                                                          @RequestParam(required = false) LocalDate endDate) {

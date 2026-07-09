@@ -1,8 +1,11 @@
 package com.airbnb.service.airbnb_project.Services;
 
+import com.airbnb.service.airbnb_project.Dto.HotelDTO;
 import com.airbnb.service.airbnb_project.Dto.HotelPriceDTO;
+import com.airbnb.service.airbnb_project.Dto.HotelPriceQueryResult;
 import com.airbnb.service.airbnb_project.Dto.HotelSearchRequest;
 import com.airbnb.service.airbnb_project.Dto.InventoryDTO;
+import com.airbnb.service.airbnb_project.Dto.PagedResponse;
 import com.airbnb.service.airbnb_project.Dto.UpdateInventoryRequestDTO;
 import com.airbnb.service.airbnb_project.Entities.InventoryEntity;
 import com.airbnb.service.airbnb_project.Entities.RoomEntity;
@@ -77,17 +80,20 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public Page<HotelPriceDTO> searchHotels(HotelSearchRequest hotelSearchRequest) {
+    public PagedResponse<HotelPriceDTO> searchHotels(HotelSearchRequest hotelSearchRequest) {
         log.info("Searching hotels for {} city, from {} to {}", hotelSearchRequest.getCity(), hotelSearchRequest.getStartDate(), hotelSearchRequest.getEndDate());
         Pageable pageable = PageRequest.of(hotelSearchRequest.getPage(), hotelSearchRequest.getSize());
         long dateCount =
                 ChronoUnit.DAYS.between(hotelSearchRequest.getStartDate(), hotelSearchRequest.getEndDate()) + 1;
 
-        Page<HotelPriceDTO> hotelPage = hotelMinPriceRepository.findHotelsWithAvailableInventory(hotelSearchRequest.getCity(),
+        Page<HotelPriceQueryResult> hotelPage = hotelMinPriceRepository.findHotelsWithAvailableInventory(hotelSearchRequest.getCity(),
                 hotelSearchRequest.getStartDate(), hotelSearchRequest.getEndDate(), hotelSearchRequest.getRoomsCount(),
                 dateCount, pageable);
 
-        return hotelPage.map((element) -> modelMapper.map(element, HotelPriceDTO.class));
+        Page<HotelPriceDTO> dtoPage = hotelPage.map((element) ->
+                new HotelPriceDTO(modelMapper.map(element.getHotel(), HotelDTO.class), element.getPrice()));
+
+        return PagedResponse.from(dtoPage);
     }
 
     @Override

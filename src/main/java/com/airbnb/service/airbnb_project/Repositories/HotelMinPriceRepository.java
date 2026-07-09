@@ -1,6 +1,6 @@
 package com.airbnb.service.airbnb_project.Repositories;
 
-import com.airbnb.service.airbnb_project.Dto.HotelPriceDTO;
+import com.airbnb.service.airbnb_project.Dto.HotelPriceQueryResult;
 import com.airbnb.service.airbnb_project.Entities.HotelEntity;
 import com.airbnb.service.airbnb_project.Entities.HotelMinPriceEntity;
 import org.springframework.data.domain.Page;
@@ -17,14 +17,14 @@ import java.util.Optional;
 public interface HotelMinPriceRepository  extends JpaRepository<HotelMinPriceEntity, Long> {
 
     @Query("""
-            SELECT new com.airbnb.service.airbnb_project.Dto.HotelPriceDTO(i.hotel, AVG(i.price))
+            SELECT new com.airbnb.service.airbnb_project.Dto.HotelPriceQueryResult(i.hotel, AVG(i.price))
             FROM HotelMinPriceEntity i
             WHERE i.hotel.city = :city
                 AND i.date BETWEEN :startDate AND :endDate
                 AND i.hotel.active = true
            GROUP BY i.hotel
            """)
-    Page<HotelPriceDTO> findHotelsWithAvailableInventory(
+    Page<HotelPriceQueryResult> findHotelsWithAvailableInventory(
             @Param("city") String city,
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate,
