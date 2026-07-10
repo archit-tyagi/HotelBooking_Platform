@@ -63,10 +63,10 @@ public class PricingUpdateService {
 
         updateInventoryPrices(inventoryList);
 
-        updateHotelMinPrice(hotel, inventoryList, startDate, endDate);
+        updateHotelMinPrice(hotel, inventoryList);
     }
 
-    private void updateHotelMinPrice(HotelEntity hotel, List<InventoryEntity> inventoryList, LocalDate startDate, LocalDate endDate) {
+    private void updateHotelMinPrice(HotelEntity hotel, List<InventoryEntity> inventoryList) {
         // Compute minimum price per day for the hotel
         Map<LocalDate, BigDecimal> dailyMinPrices = inventoryList.stream()
                 .collect(Collectors.groupingBy(
