@@ -47,7 +47,7 @@ public interface InventoryRepository extends JpaRepository<InventoryEntity,Long>
                   AND i.closed = false
             """)
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    void findAndLockReservedInventory(@Param("roomId") Long roomId,
+    List<InventoryEntity> findAndLockReservedInventory(@Param("roomId") Long roomId,
                                                        @Param("startDate") LocalDate startDate,
                                                        @Param("endDate") LocalDate endDate,
                                                        @Param("numberOfRooms") int numberOfRooms);
@@ -105,7 +105,7 @@ public interface InventoryRepository extends JpaRepository<InventoryEntity,Long>
                   AND i.date BETWEEN :startDate AND :endDate
             """)
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    void getInventoryAndLockBeforeUpdate(@Param("roomId") Long roomId,
+    List<InventoryEntity> getInventoryAndLockBeforeUpdate(@Param("roomId") Long roomId,
                                                           @Param("startDate") LocalDate startDate,
                                                           @Param("endDate") LocalDate endDate);
 

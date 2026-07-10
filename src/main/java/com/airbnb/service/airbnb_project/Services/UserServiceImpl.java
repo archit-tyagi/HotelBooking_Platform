@@ -26,15 +26,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserEntity getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: "+id));
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
     @Override
     public void updateProfile(ProfileUpdateRequestDTO profileUpdateRequestDto) {
         UserEntity user = getCurrentUser();
 
-        if(profileUpdateRequestDto.getDateOfBirth() != null) user.setDateOfBirth(profileUpdateRequestDto.getDateOfBirth());
-        if(profileUpdateRequestDto.getGender() != null) user.setGender(profileUpdateRequestDto.getGender());
+        if (profileUpdateRequestDto.getDateOfBirth() != null)
+            user.setDateOfBirth(profileUpdateRequestDto.getDateOfBirth());
+        if (profileUpdateRequestDto.getGender() != null) user.setGender(profileUpdateRequestDto.getGender());
         if (profileUpdateRequestDto.getName() != null) user.setName(profileUpdateRequestDto.getName());
 
         userRepository.save(user);

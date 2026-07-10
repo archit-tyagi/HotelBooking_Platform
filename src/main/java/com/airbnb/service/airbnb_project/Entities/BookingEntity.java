@@ -41,18 +41,18 @@ public class BookingEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hotel_id",nullable = false)
+    @JoinColumn(name = "hotel_id", nullable = false)
     private HotelEntity hotel;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id",nullable = false)
+    @JoinColumn(name = "room_id", nullable = false)
     private RoomEntity room;
 
     @Column(nullable = false)
     private Integer roomsCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id",nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
     @Column(nullable = false)
@@ -73,7 +73,7 @@ public class BookingEntity {
     private BookingStatus bookingStatus;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "booking_guest",joinColumns = @JoinColumn(name ="booking_id"),
+    @JoinTable(name = "booking_guest", joinColumns = @JoinColumn(name = "booking_id"),
             inverseJoinColumns = @JoinColumn(name = "guest_id"))
     private Set<GuestEntity> guests;
 

@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface HotelRepository extends JpaRepository<HotelEntity,Long> {
+public interface HotelRepository extends JpaRepository<HotelEntity, Long> {
     List<HotelEntity> findByOwner(UserEntity user);
 }

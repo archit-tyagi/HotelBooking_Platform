@@ -43,9 +43,9 @@ public class PricingUpdateService {
         int page = 0;
         int batchSize = 100;
 
-        while(true) {
+        while (true) {
             Page<HotelEntity> hotelPage = hotelRepository.findAll(PageRequest.of(page, batchSize));
-            if(hotelPage.isEmpty()) {
+            if (hotelPage.isEmpty()) {
                 break;
             }
             hotelPage.getContent().forEach(this::updateHotelPrices);

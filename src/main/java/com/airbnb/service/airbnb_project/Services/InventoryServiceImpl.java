@@ -54,8 +54,8 @@ public class InventoryServiceImpl implements InventoryService {
         LocalDate endDate = today.plusYears(1);
         List<InventoryEntity> toCreate = new ArrayList<>();
 
-        while(!today.isAfter(endDate)){
-            if(existingDates.contains(today)) continue;
+        while (!today.isAfter(endDate)) {
+            if (existingDates.contains(today)) continue;
             toCreate.add(InventoryEntity.builder()
                     .hotel(room.getHotel())
                     .room(room)
@@ -68,7 +68,7 @@ public class InventoryServiceImpl implements InventoryService {
                     .totalCount(room.getTotalCount())
                     .closed(false)
                     .build());
-            today=today.plusDays(1);
+            today = today.plusDays(1);
         }
         inventoryRepository.saveAll(toCreate);
     }
@@ -100,10 +100,11 @@ public class InventoryServiceImpl implements InventoryService {
     public List<InventoryDTO> getAllInventoryByRoom(Long roomId) {
         log.info("Getting All inventory by room for room with id: {}", roomId);
         RoomEntity room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new ResourceNotFoundException("Room not found with id: "+roomId));
+                .orElseThrow(() -> new ResourceNotFoundException("Room not found with id: " + roomId));
 
         UserEntity user = AppUtils.getCurrentUser();
-        if(!user.equals(room.getHotel().getOwner())) throw new AccessDeniedException("You are not the owner of room with id: "+roomId);
+        if (!user.equals(room.getHotel().getOwner()))
+            throw new AccessDeniedException("You are not the owner of room with id: " + roomId);
 
         return inventoryRepository.findByRoomOrderByDate(room).stream()
                 .map((element) -> modelMapper.map(element,
@@ -118,10 +119,11 @@ public class InventoryServiceImpl implements InventoryService {
                 updateInventoryRequestDto.getStartDate(), updateInventoryRequestDto.getEndDate());
 
         RoomEntity room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new ResourceNotFoundException("Room not found with id: "+roomId));
+                .orElseThrow(() -> new ResourceNotFoundException("Room not found with id: " + roomId));
 
         UserEntity user = AppUtils.getCurrentUser();
-        if(!user.equals(room.getHotel().getOwner())) throw new AccessDeniedException("You are not the owner of room with id: "+roomId);
+        if (!user.equals(room.getHotel().getOwner()))
+            throw new AccessDeniedException("You are not the owner of room with id: " + roomId);
 
         inventoryRepository.getInventoryAndLockBeforeUpdate(roomId, updateInventoryRequestDto.getStartDate(),
                 updateInventoryRequestDto.getEndDate());

@@ -17,7 +17,7 @@ public class PagedResponse<T> {
     private boolean first;
     private boolean last;
 
-    public static <T>PagedResponse<T> from(Page<T> p){
+    public static <T> PagedResponse<T> from(Page<T> p) {
         return new PagedResponse<>(p.getContent(), p.getNumber(), p.getSize(), p.getTotalElements(),
                 p.getTotalPages(), p.isFirst(), p.isLast());
     }

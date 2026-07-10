@@ -57,7 +57,7 @@ public class HotelEntity {
     @Column(nullable = false)
     private Boolean active;
 
-    @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<RoomEntity> rooms;
 

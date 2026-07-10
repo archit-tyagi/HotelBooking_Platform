@@ -15,7 +15,6 @@ public class GuestEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
@@ -28,5 +27,5 @@ public class GuestEntity {
     private Gender gender;
 
     private Integer age;
-    
+
 }

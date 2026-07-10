@@ -35,11 +35,11 @@ public class RoomServiceImpl implements RoomService {
         log.info("Creating a new room in hotel with ID: {}", hotelId);
         HotelEntity hotel = hotelRepository
                 .findById(hotelId)
-                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: "+hotelId));
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: " + hotelId));
 
         UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(!user.equals(hotel.getOwner())) {
-            throw new UnAuthorisedException("This user does not own this hotel with id: "+hotelId);
+        if (!user.equals(hotel.getOwner())) {
+            throw new UnAuthorisedException("This user does not own this hotel with id: " + hotelId);
         }
         RoomEntity room = modelMapper.map(roomDto, RoomEntity.class);
         room.setHotel(hotel);
@@ -57,11 +57,11 @@ public class RoomServiceImpl implements RoomService {
         log.info("Getting all rooms in hotel with ID: {}", hotelId);
         HotelEntity hotel = hotelRepository
                 .findById(hotelId)
-                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: "+hotelId));
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: " + hotelId));
 
         UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(!user.equals(hotel.getOwner())) {
-            throw new UnAuthorisedException("This user does not own this hotel with id: "+hotelId);
+        if (!user.equals(hotel.getOwner())) {
+            throw new UnAuthorisedException("This user does not own this hotel with id: " + hotelId);
         }
 
         return hotel.getRooms()
@@ -75,7 +75,7 @@ public class RoomServiceImpl implements RoomService {
         log.info("Getting the room with ID: {}", roomId);
         RoomEntity room = roomRepository
                 .findById(roomId)
-                .orElseThrow(() -> new ResourceNotFoundException("Room not found with ID: "+roomId));
+                .orElseThrow(() -> new ResourceNotFoundException("Room not found with ID: " + roomId));
         return modelMapper.map(room, RoomDTO.class);
     }
 
@@ -85,11 +85,11 @@ public class RoomServiceImpl implements RoomService {
         log.info("Deleting the room with ID: {}", roomId);
         RoomEntity room = roomRepository
                 .findById(roomId)
-                .orElseThrow(() -> new ResourceNotFoundException("Room not found with ID: "+roomId));
+                .orElseThrow(() -> new ResourceNotFoundException("Room not found with ID: " + roomId));
 
         UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(!user.equals(room.getHotel().getOwner())) {
-            throw new UnAuthorisedException("This user does not own this room with id: "+roomId);
+        if (!user.equals(room.getHotel().getOwner())) {
+            throw new UnAuthorisedException("This user does not own this room with id: " + roomId);
         }
         inventoryService.deleteAllInventories(room);
         roomRepository.deleteById(roomId);
@@ -101,15 +101,15 @@ public class RoomServiceImpl implements RoomService {
         log.info("Updating the room with ID: {}", roomId);
         HotelEntity hotel = hotelRepository
                 .findById(hotelId)
-                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: "+hotelId));
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: " + hotelId));
 
         UserEntity user = AppUtils.getCurrentUser();
-        if(!user.equals(hotel.getOwner())) {
-            throw new UnAuthorisedException("This user does not own this hotel with id: "+hotelId);
+        if (!user.equals(hotel.getOwner())) {
+            throw new UnAuthorisedException("This user does not own this hotel with id: " + hotelId);
         }
 
         RoomEntity room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new ResourceNotFoundException("Room not found with ID: "+roomId));
+                .orElseThrow(() -> new ResourceNotFoundException("Room not found with ID: " + roomId));
 
         modelMapper.map(roomDto, room);
         room.setId(roomId);

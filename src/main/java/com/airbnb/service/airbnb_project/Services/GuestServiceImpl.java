@@ -41,7 +41,7 @@ public class GuestServiceImpl implements GuestService {
                 .orElseThrow(() -> new EntityNotFoundException("Guest not found"));
 
         UserEntity user = AppUtils.getCurrentUser();
-        if(!user.equals(guest.getUser())) throw new AccessDeniedException("You are not the owner of this guest");
+        if (!user.equals(guest.getUser())) throw new AccessDeniedException("You are not the owner of this guest");
 
         modelMapper.map(guestDto, guest);
         guest.setUser(user);
@@ -58,7 +58,7 @@ public class GuestServiceImpl implements GuestService {
                 .orElseThrow(() -> new EntityNotFoundException("Guest not found"));
 
         UserEntity user = AppUtils.getCurrentUser();
-        if(!user.equals(guest.getUser())) throw new AccessDeniedException("You are not the owner of this guest");
+        if (!user.equals(guest.getUser())) throw new AccessDeniedException("You are not the owner of this guest");
 
         guestRepository.deleteById(guestId);
         log.info("Guest with ID: {} deleted successfully", guestId);

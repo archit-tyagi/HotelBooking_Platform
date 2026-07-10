@@ -14,16 +14,16 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @Repository
-public interface HotelMinPriceRepository  extends JpaRepository<HotelMinPriceEntity, Long> {
+public interface HotelMinPriceRepository extends JpaRepository<HotelMinPriceEntity, Long> {
 
     @Query("""
-            SELECT new com.airbnb.service.airbnb_project.Dto.HotelPriceQueryResult(i.hotel, AVG(i.price))
-            FROM HotelMinPriceEntity i
-            WHERE i.hotel.city = :city
-                AND i.date BETWEEN :startDate AND :endDate
-                AND i.hotel.active = true
-           GROUP BY i.hotel
-           """)
+             SELECT new com.airbnb.service.airbnb_project.Dto.HotelPriceQueryResult(i.hotel, AVG(i.price))
+             FROM HotelMinPriceEntity i
+             WHERE i.hotel.city = :city
+                 AND i.date BETWEEN :startDate AND :endDate
+                 AND i.hotel.active = true
+            GROUP BY i.hotel
+            """)
     Page<HotelPriceQueryResult> findHotelsWithAvailableInventory(
             @Param("city") String city,
             @Param("startDate") LocalDate startDate,

@@ -30,13 +30,13 @@ public class RoomEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hotel_id",nullable = false)
+    @JoinColumn(name = "hotel_id", nullable = false)
     private HotelEntity hotel;
 
     @Column(nullable = false)
     private String type;
 
-    @Column(nullable = false,precision = 10,scale = 2)
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal basePrice;
 
     @JdbcTypeCode(SqlTypes.JSON)

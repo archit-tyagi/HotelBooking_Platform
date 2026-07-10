@@ -39,8 +39,8 @@ public class CheckoutServiceImpl implements CheckoutService {
                     .setMode(SessionCreateParams.Mode.PAYMENT)
                     .setBillingAddressCollection(SessionCreateParams.BillingAddressCollection.REQUIRED)
                     .setCustomer(customer.getId())
-                    .setSuccessUrl("http://localhost:8080/payment-success")
-                    .setCancelUrl("http://localhost:8080/payment-cancel")
+                    .setSuccessUrl("http://localhost:8080/airbnb/v1/payment-success")
+                    .setCancelUrl("http://localhost:8080/airbnb/v1/payment-cancel")
                     .addLineItem(
                             SessionCreateParams.LineItem.builder()
                                     .setQuantity(1L)
@@ -50,8 +50,8 @@ public class CheckoutServiceImpl implements CheckoutService {
                                                     .setUnitAmount(booking.getAmount().multiply(BigDecimal.valueOf(100)).longValue())
                                                     .setProductData(
                                                             SessionCreateParams.LineItem.PriceData.ProductData.builder()
-                                                                    .setName(booking.getHotel().getName() +" : "+ booking.getRoom().getType())
-                                                                    .setDescription("Booking ID: "+booking.getId())
+                                                                    .setName(booking.getHotel().getName() + " : " + booking.getRoom().getType())
+                                                                    .setDescription("Booking ID: " + booking.getId())
                                                                     .build()
                                                     )
                                                     .build()

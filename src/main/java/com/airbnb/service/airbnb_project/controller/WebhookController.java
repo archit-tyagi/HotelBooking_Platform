@@ -30,7 +30,7 @@ public class WebhookController {
             bookingService.capturePayment(event);
             return ResponseEntity.ok("Success");
         } catch (SignatureVerificationException e) {
-            return ResponseEntity.status(500).build();
+            return ResponseEntity.badRequest().body(e.toString());
         }
     }
 }

@@ -52,12 +52,12 @@ public class HotelServiceImpl implements HotelService {
         log.info("Getting the hotel with ID: {}", id);
         HotelEntity hotel = hotelRepository
                 .findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: "+id));
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: " + id));
 
         UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if(!user.equals(hotel.getOwner())) {
-            throw new UnAuthorisedException("This user does not own this hotel with id: "+id);
+        if (!user.equals(hotel.getOwner())) {
+            throw new UnAuthorisedException("This user does not own this hotel with id: " + id);
         }
 
         return modelMapper.map(hotel, HotelDTO.class);
@@ -68,11 +68,11 @@ public class HotelServiceImpl implements HotelService {
         log.info("Updating the hotel with ID: {}", id);
         HotelEntity hotel = hotelRepository
                 .findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: "+id));
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: " + id));
 
         UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(!user.equals(hotel.getOwner())) {
-            throw new UnAuthorisedException("This user does not own this hotel with id: "+id);
+        if (!user.equals(hotel.getOwner())) {
+            throw new UnAuthorisedException("This user does not own this hotel with id: " + id);
         }
 
         modelMapper.map(hotelDto, hotel);
@@ -88,14 +88,14 @@ public class HotelServiceImpl implements HotelService {
     public void deleteHotelById(Long id) {
         HotelEntity hotel = hotelRepository
                 .findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: "+id));
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: " + id));
 
         UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(!user.equals(hotel.getOwner())) {
-            throw new UnAuthorisedException("This user does not own this hotel with id: "+id);
+        if (!user.equals(hotel.getOwner())) {
+            throw new UnAuthorisedException("This user does not own this hotel with id: " + id);
         }
 
-        for(RoomEntity room: hotel.getRooms()) {
+        for (RoomEntity room : hotel.getRooms()) {
             inventoryService.deleteAllInventories(room);
             roomRepository.deleteById(room.getId());
         }
@@ -108,20 +108,20 @@ public class HotelServiceImpl implements HotelService {
         log.info("Activating the hotel with ID: {}", hotelId);
         HotelEntity hotel = hotelRepository
                 .findById(hotelId)
-                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: "+hotelId));
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: " + hotelId));
 
         UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(!user.equals(hotel.getOwner())) {
-            throw new UnAuthorisedException("This user does not own this hotel with id: "+hotelId);
+        if (!user.equals(hotel.getOwner())) {
+            throw new UnAuthorisedException("This user does not own this hotel with id: " + hotelId);
         }
 
-        if(Boolean.TRUE.equals(hotel.getActive())){
+        if (Boolean.TRUE.equals(hotel.getActive())) {
             log.info("Hotel with ID: {} is already active, skipping initialization", hotelId);
         }
 
         hotel.setActive(true);
 
-        for(RoomEntity room: hotel.getRooms()) {
+        for (RoomEntity room : hotel.getRooms()) {
             inventoryService.initializeRoomForAnYear(room);
         }
     }
@@ -131,7 +131,7 @@ public class HotelServiceImpl implements HotelService {
     public HotelInfoDTO getHotelInfoById(Long hotelId) {
         HotelEntity hotel = hotelRepository
                 .findById(hotelId)
-                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: "+hotelId));
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: " + hotelId));
 
         List<RoomDTO> rooms = hotel.getRooms()
                 .stream()

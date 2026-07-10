@@ -65,7 +65,7 @@ public class HotelController {
     }
 
     @GetMapping
-    @Operation(summary = "Get all hotels owned by admin",description = "Retrieve a list of all hotels owned by the admin")
+    @Operation(summary = "Get all hotels owned by admin", description = "Retrieve a list of all hotels owned by the admin")
     public ResponseEntity<List<HotelDTO>> getAllHotels() {
         return ResponseEntity.ok(hotelService.getAllHotels());
     }
@@ -77,7 +77,7 @@ public class HotelController {
     }
 
     @GetMapping("/{hotelId}/reports")
-    @Operation(summary = "Generate a hotel booking report",description = "Generates a report for hotel bookings within a date range")
+    @Operation(summary = "Generate a hotel booking report", description = "Generates a report for hotel bookings within a date range")
     public ResponseEntity<HotelReportDTO> getHotelReport(@PathVariable Long hotelId,
                                                          @RequestParam(required = false) LocalDate startDate,
                                                          @RequestParam(required = false) LocalDate endDate) {
