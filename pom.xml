@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.airbnb.service</groupId>
-    <artifactId>AirBnb_Project</artifactId>
+    <artifactId>HotelBooking_Platform</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>AirBnb_Project</name>
     <description>AirBnb_Project</description>

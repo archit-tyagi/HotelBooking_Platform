@@ -1,4 +1,4 @@
-# 🏨 Airbnb Backend API
+# 🏨 HotelBooking Backend API
 
 This is the "engine" behind an online hotel-booking website, similar to **Airbnb** or **Booking.com**. It handles everything that happens behind the scenes when someone searches for a hotel, books a room, and pays for it.
 It includes inventory management, booking flow, user authentication, and hotel browsing.
@@ -6,9 +6,9 @@ It includes inventory management, booking flow, user authentication, and hotel b
 
 ## 🔗 Important Links
 
-| What it is                              | Link |
-|-----------------------------------------|------|
-| 📖 Interactive API Documentation        | https://archit-tyagi.github.io/AirBnb_Project/ |
+| What it is                              | Link                                                                   |
+|-----------------------------------------|------------------------------------------------------------------------|
+| 📖 Interactive API Documentation        | https://archit-tyagi.github.io/HotelBooking_Platform/                                                                  |
 | 🐳 Docker Image                         | https://hub.docker.com/repository/docker/archittyagi221/airbnb/general |
 
 The **Swagger** link opens a friendly web page where you can see every feature and even try it out live — no coding required.
